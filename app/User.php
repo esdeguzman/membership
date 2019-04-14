@@ -2,22 +2,22 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use App\Traits\CheckableState;
+use App\Traits\HasVerifiedEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
+    use Notifiable, HasVerifiedEmail, CheckableState;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -34,6 +34,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime:Y-m-d',
     ];
 }

@@ -7,6 +7,26 @@ $(document).ready(function () {
         $(".preloader").fadeOut();
         $('#side-menu').metisMenu();
     });
+    // Start Custom JS
+    $('#button-logout').on('click', function() {
+        $('#form-logout').submit()
+    })
+
+    $(".closed").click(function (event) {
+        $(".myadmin-alert-click").fadeToggle(350);
+        return false;
+    });
+    $('#resend-email').click(function () {
+        let gifUrl = "/plugins/images/busy.gif"
+
+        $('div.block5').block({
+            message: '<h4><img src="' + gifUrl + '" /> Sending email verification...</h4>',
+            css: {
+                border: '1px solid #fff'
+            }
+        });
+    });
+    // End Custom JS
     // Theme settings
     $(".open-close").click(function () {
         $("body").toggleClass("show-sidebar");

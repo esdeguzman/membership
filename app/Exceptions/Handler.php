@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +47,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof InvalidSignatureException) {
+            return redirect()
+                    ->route('home')->with('error', 'It seems like your ' . 
+                        'email verification link has already expired! Kindly ' . 
+                        'refresh the page to create a fresh verification link.');
+        }
+
         return parent::render($request, $exception);
     }
 }
